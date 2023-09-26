@@ -1,31 +1,54 @@
 import React from "react"
 import { Link } from 'react-router-dom';
-import SearchBar from "../searchbar/SearchBar";
 import style from './Nav.module.css';
 import Navlink from "../navlink/NavLink";
-//import logoimg from "../../assets/logo4.png"
+import SearchBar from "../searchbar/SearchBar";
+import { useLocation } from "react-router-dom";
+import logoimg from "../../assets/logo-f1-150.png";
 
 
-class Nav extends React.Component{
-    constructor(props){
-        super()
-    }
+function Nav({onSearch , onHomeClick}) {
 
-    render(){
-        return <nav className={style.nav}>
-{/*             <div className={style.logoContainer}>
-                <img src={logoimg} alt="Logo" className={style.logo} />
-            </div> */}
-            <div className={style.navLinks}>
-                <Navlink to={'/home'}>
-                    <span className={style.navLinkText}>Home</span>
-                </Navlink>
-                        
-                <SearchBar onSearch={this.props.onSearch}/>
-            </div>
-        </nav>
-    }
+  const { pathname } = useLocation();
+
+  if (pathname !== '/home') {
+    return (
+      <div className={style.nav}>
+        <div className={style.logoContainer}>
+          <Navlink to={'/'}>
+            <img src={logoimg} alt="Logo" className={style.logo} />
+          </Navlink>
+        </div>
+        <div className={style.navLinks}>
+          <Navlink to={'/home'}>
+            <span className={style.navLinkText} onClick={() => onHomeClick()}>Home</span>
+          </Navlink>
+        </div>
+      </div>
+    );
+  } else {
+    return (
+      <div className={style.nav}>
+        <div className={style.logoContainer}>
+          <Navlink to={'/'}>
+            <img src={logoimg} alt="Logo" className={style.logo} />
+          </Navlink>
+        </div>
+        <div className={style.navLinks}>
+          <Navlink to={'/home'}>
+            <span className={style.navLinkText} onClick={() => onHomeClick()}>Home</span>
+          </Navlink>
+          <Navlink to={"/create"}>
+            <span className={style.navLinkText}>New Driver</span>
+          </Navlink>
+          <SearchBar onSearch={onSearch} />
+        </div>
+      </div>
+    );
+  }
 
 }
 
-export default Nav;
+ 
+  
+  export default Nav;

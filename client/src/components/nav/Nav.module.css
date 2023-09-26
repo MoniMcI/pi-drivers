@@ -1,57 +1,45 @@
 .nav{
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin: 0 auto;
-    background-image: linear-gradient(to right,#FBC49E,#AA3F45, #6F4053); 
+    background-color: #000; 
     width:100%;
     height: 5.5em;
-    border-bottom-left-radius: 10px; 
-    border-bottom-right-radius: 10px
 
   }
-
-
-
 .logoContainer {
-    padding-left: 1em; /* Espacio a la izquierda para la imagen del logo */
+    padding: 0.5em;
 }
 
-.logo {
-    width: auto; /* Ajusta el ancho de la imagen */
-    height: 5em; /* Permite que la altura se ajuste proporcionalmente */
-}
+
 
 .navLinks {
   display: flex;
   align-items: center;
-  margin-right: 1em; /* Espacio a la derecha entre elementos de enlace y SearchBar */
-  flex-grow: 1; /* Ocupa el espacio disponible */
-  justify-content: flex-end; /* Alinea los elementos a la derecha */
+  /* margin-right: 2em; */
 }
 
 .searchBar {
   display: flex;
   align-items: center;
+  padding-right: 3em;
 }
 
 .navlink span {
-  /* Estilos para los span dentro de los Navlink */
-  color: white; /* Cambia el color del texto */
-  margin: 0 0.5em; /* Agrega margen a los lados del texto */
-  font-weight: bold; /* Cambia el peso de la fuente */
-  text-transform: uppercase; /* Convierte el texto a mayúsculas */
-  text-decoration: none; /* Elimina la decoración de subrayado del texto */
+  color: white; 
+  /* padding-right: 50px; */
+  font-weight: bold; 
+  text-transform: uppercase;
+  text-decoration: none; 
 }
 
-
-
-/* Aumenta el tamaño de fuente y cambia el color */
 .navLinkText {
   font-size: 1.2em;
-  color: white; /* Cambia a tu color deseado */
-  margin-left: 3em;
+  color: white; 
+  padding-right: 3em;
 }
 
-/* Agrega espacio entre elementos <span> */
 .navLinkText:hover{
-  color:#54B8B6;
+  color:red;
 }

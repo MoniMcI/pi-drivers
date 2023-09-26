@@ -3,11 +3,13 @@ const { DataTypes } = require('sequelize');
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
   // defino el modelo
-  sequelize.define('Driver', {
+  sequelize.define(
+    'Driver', 
+    {
     id: {
       type: DataTypes.UUID, 
       primaryKey: true,
-      defaultValue: DataTypes.UUIDV4,
+      defaultValue: DataTypes.UUIDV4,  //es el algoritmo que se encarga de crear el numero aleatorio
     },
     forename: {
       type: DataTypes.STRING,
@@ -29,11 +31,11 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    birthDate: {
+    dob: {
       type: DataTypes.DATEONLY,
       allowNull: false,
-    }
-
-  });
+    },
+  },
+  );
 };
 

@@ -32,10 +32,12 @@ let capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0].s
 sequelize.models = Object.fromEntries(capsEntries);
 
 
-// Aca vendrian las relaciones
-// Product.hasMany(Reviews);
+//definir los modelos que queremos usar en nuestra aplicacion
 DriverModel(sequelize)
 TeamModel(sequelize)
+// Aca vendrian las relaciones
+// Product.hasMany(Reviews);
+
 
 const { Driver, Team } = sequelize.models;
 

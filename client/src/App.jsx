@@ -1,59 +1,55 @@
 import './App.css';
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
-import Cards from './components/cards/Cards';
 import LandingPage from './components/landing/LandingPage';
-import Nav from './components/nav/nav';
+import Home from "./components/home/Home";
 import Detail from './components/detail/Detail';
-
+import CreateDriver from './components/createdriver/CreateDriver';
+import Nav from './components/nav/Nav';
+import { getDriverByName, getAllDrivers } from './redux/actions/actions'
 
 
 function App() {
 
-  const { pathname } = useLocation()
-  const navigate = useNavigate()
-  const [drivers, setDrivers] = useState([]); // Almacena los datos de los conductores
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch()
 
-  useEffect(() => {
-    // Realiza una solicitud GET a la API del backend (getAllDrivers)
-    axios.get('http://localhost:3001/drivers')
-      .then((response) => {
-        setDrivers(response.data); // Almacena los datos en el estado
-      })
-      .catch((error) => {
-        console.error('Error al obtener los conductores:', error);
-      });
-  }, []); // El segundo argumento es un arreglo vacío para asegurarse de que el efecto se ejecute solo una vez
+  const [searchString, setSearchString] = useState("");
 
-  const onSearch = async (id) =>{
-    if(!id) alert('Ingresa un Id')
+const onSearch = (name) => {
+  setSearchString(name);
+};
 
-    if(drivers.find(driver => driver.id === id)){
-       alert( `Ya existe ese driver con ese id ${id}`);
-       return;
-    }
+const onHomeClick = () => {
+  setSearchString(""); // Limpia el término de búsqueda
+  dispatch(getAllDrivers()); // Obtiene todos los conductores nuevamente
+};
 
-    try {
+useEffect(() => {
+  if (searchString) {
+    dispatch(getDriverByName(searchString));
 
-       const { data } = await axios(`http://localhost:3001/drivers/${id}`)
-       setDrivers(oldDrivers => [...oldDrivers, data])
-       
-    } catch (error) {
-       alert(error.response.data)
-    }
- }
+  }
+}, [searchString, dispatch]);
+
 
     return (
       <div className='App'>
-        { pathname !=='/' && <Nav onSearch = {onSearch}/>}
+        { pathname !=='/' && 
+          <Nav  
+            onSearch = {onSearch} 
+            onHomeClick={onHomeClick}
+            onFilterChange={(value) => setFilter(value)}
+            onSortChange={(value)=> ScrollRestoration(value)}
+            />} 
          <Routes>
-            <Route path="/" element={<LandingPage />} />       
-            <Route path='/home' element={ <Cards drivers={drivers} /> } />
-            <Route path='/detail/:id' element={ <Detail/> } />
+            <Route path="/" element={<LandingPage />} /> 
+            <Route path="/home" element={<Home />} /> 
+            <Route path="/detail/:id" element={<Detail />} />
+            <Route path="/create" element={<CreateDriver />} />        
          </Routes>
-         
-         
       </div>
 
   );

@@ -1,76 +1,45 @@
-
-@font-face {
-    font-family: 'rym';
-    src: url('../../assets/get_schwifty.ttf') format('truetype');
- }
-
-.fathercontainer{
-    display: flex;
-    justify-content: center;
-    /*align-items: center;*/
-    height: 90vh; /* Ocupa todo el alto de la pantalla */
-    
-    margin:0;
-    padding:0;
-
-
+.container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width:100vw;
+  padding-bottom: 50px;
 }
-.container {
-
-    display: flex;
-    flex-direction: row; /* Alinea las columnas una al lado de la otra */
-    margin:2.5em 0;
-
-    padding: 2em 1em 0 1em;
-    background-image: linear-gradient(to left, rgba(134, 225, 223, 0.2), rgba(40, 77, 95, 2));
-    transition: background-color 0.5s;
-    width: 70%;
-
-    border-radius: 1em;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 1);
-
-  }
-  
-
-.container:hover {
-    background-image: linear-gradient(to right,  rgba(134, 225, 223, 0.2),  rgba(40, 77, 95,2)); 
-  }
-
-
-  .leftColumn {
-    flex: 1;
-    padding: 20px 20px 10px 20px;
-    text-align: left;
-  }
-  
-  .rightColumn {
-    flex: 1;
-    padding: 40px 20px 10px 20px;
-    text-align: center;
-  }
-  
-  .rightColumn img {
-    max-width: 100%;
-    height: auto;
-  }
-  
-  .container img {
-    /* opacity: 0.8; */
-    transform: scale(0.95);
-    /* transition: transform 0.3s ease, opacity 0.3s ease; */
-  }
-  
-  .container:hover img {
-    opacity: 1;
-    transform: scale(1.1);
-  }
-
-  .specialFont {
-    font-family: 'rym', Arial, sans-serif;
-    color: white; /* White color */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1); 
+.detail {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 800px;
+  background-color: black;
+  margin: 0 30px;
+  border: white 4px solid;
+  padding:2%;
+}
+.leftColumn {
+  display: flex;
+  flex-direction: column;
+  color: white; 
+  align-items: center;
+  text-align: left;
+  width: 450px;
+}
+.rightColumn {
+  display: flex;
+  flex-direction: column; 
+  width:350px;  
+}
+.rightColumn img {
+  max-width: 100%;
+  height: auto;
+}
+.detail img {
+ transform: scale(0.95);
 }
 
+.negrita{
+  font-weight: 700;
+}
 
 .circularImage {
     width: 250px; /* Ajusta el tamaño del círculo según tus necesidades */
@@ -88,4 +57,15 @@
     border-radius: 15px; /* Cambia a esquinas redondeadas en hover */
     transform: scale(1.1); /* Aplica un efecto de escala en hover */
     transition: all 0.3s ease; /* Agrega una transición suave en hover */
+  }
+
+  span{
+    margin-right:10px;
+  }
+
+ 
+  .title {
+    font-size: 50px; 
+    margin: 10px 0; 
+    color: white;
   }

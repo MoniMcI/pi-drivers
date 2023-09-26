@@ -1,20 +1,24 @@
 const axios = require("axios");
 const { Driver, Team } = require('../db');
+const imgDefault = "https://i.imgur.com/Ks7SbZt.png"
 
-module.exports = async (req, res)=>{
+module.exports = async ()=>{
 
-    try {
+
         // Hacer una solicitud GET a la API externa en localhost:5000/drivers
         const apiResponse = await axios.get("http://localhost:5000/drivers");
     
-        // Obtener los datos de los conductores de la respuesta
-        const apiDrivers = apiResponse.data.map(apiDriver => {
-          const { forename, surname } = apiDriver.name;
+        // Obtener los datos de los conductores desde la api
+        const apiDrivers = apiResponse.data.map((apiDriver) => {
           return {
-            ...apiDriver,
-            forename,
-            surname
-          };
+            id: apiDriver.id,
+            forename: apiDriver.name.forename,
+            surname: apiDriver.name.surname,
+            image: apiDriver.image.url || imgDefault,
+            dob: apiDriver.dob,
+            teams: apiDriver.teams,
+  
+        };
         });
 
         // Obtener los conductores de la base de datos
@@ -29,12 +33,8 @@ module.exports = async (req, res)=>{
         
 
         // Envía la lista de conductores combinados como respuesta
-        res.json(allDrivers);
+        return(allDrivers);
         
-      } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Error al obtener la lista de conductores' });
-      }
 
 }
 

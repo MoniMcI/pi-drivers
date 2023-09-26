@@ -9,31 +9,55 @@ function Detail() {
   const [ driver, setDriver ]= useState({})
   const URL_BASE = 'http://localhost:3001/drivers/' //a esta url del back end llamaremos
 
+
   useEffect(() => {
    axios(`${URL_BASE}${id}`).then(({ data }) => {
       if (data.id) {
-         setDriver(data);
-         console.log(data)
+         setDriver(data);  
       } else {
          window.alert('No hay drivers con ese ID');
       }
    });
+   console.log("driver recibido: ", driver)
    return setDriver({});
 }, [id]);
   
   return (
-    <div className={style.fathercontainer}>
-      <div className={style.container}>
+    <div className={style.container}>
+      <div>
+        <h2 className={style.title}>Driver's detail</h2>
+      </div>
+      
+      <div className={style.detail}>
         <div className={style.leftColumn}>
-          <h2 style={{ color: "rgba(251, 196, 158, 0.8)", textShadow: "2px 2px 4px rgba(0, 0, 0, 1)" }}>Detalle del Driver</h2>
-          {/* <h2>Id: { character.id }</h2>      */}
-          <h1 className={style.specialFont}>{driver.forename} {driver.surname}</h1>      
-          <p>Description {driver.description}</p>
+          
+          <h1 className={style.specialFont}>
+            <span>{driver.name ? driver.name.forename : driver.forename}</span> 
+            <span>{driver.name ? driver.name.surname : driver.surname}</span>
+            </h1>      
+            <div className={style.infoDriver}>
+            <p><span className={style.negrita}>Nationality: </span>{driver.nationality}</p>
+            <p><span className={style.negrita}>Date of Birth: </span>{driver.dob}</p> 
+            <p><span className={style.negrita}>Description: </span>{driver.description}</p>  
+
+            <div><span className={style.negrita}>Teams:</span>
+              { 
+                typeof driver.teams === 'string'
+                  ? (<span >{driver.teams}</span>)
+                  : Array.isArray(driver.Teams) && driver.Teams.length > 0
+                       ? ( <span >{driver.Teams.map((team, index) => (index === driver.Teams.length - 1 ? team.name : `${team.name}, `))}</span>) 
+                  : (<span>No se encontraron escuderías.</span> )
+              }           
+            </div>
+          
+          <p><span className={style.negrita}>Id:</span> {driver.id}</p></div>
+
 
         </div>
-        <div className={`${style.rightColumn} ${style.squareImage}`}>
-          {driver.img && <img src={driver.img} alt={driver.surname} className={style.circularImage} />}
-          </div>
+        <div className={style.rightColumn}>
+          {driver.image && <img src={driver.image.url ? driver.image.url : driver.image } alt={driver.surname} className={style.circularImage} />}
+        </div>
+
       </div>
     </div>
   )

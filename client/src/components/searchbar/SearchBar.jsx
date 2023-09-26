@@ -1,24 +1,30 @@
-import { Btn, DivSearch, Input } from "./searchStyle";
-import { useState } from "react";
+import { useState } from 'react';
+import style from "./SearchBar.module.css";
 
-export default function SearchBar({onSearch}) {
+export default function SearchBar({ onSearch }) {
 
-   const [id, setId] = useState('')
+   const [searchName, setSearchName] = useState("");
 
-   function handleChange(evento){
-      //console.log(evento.target.value);
-      setId(evento.target.value)
-   }
+  // Manejador de cambios para el campo de búsqueda
+   const handleChange = (event) => {
+      setSearchName(event.target.value);
+   };
 
-   const search = ()=> {
-      onSearch(id)
-      setId('')
-   }
+   const search = () => {
+      onSearch(searchName);
+      setSearchName("");
+   };
+
    return (
-      <DivSearch>
-         <Input type='search' onChange={handleChange} value={id}
-         placeholder="Ingresa Id..."/>
-         <Btn onClick={search}>Agregar</Btn>
-      </DivSearch>
+      <div classname = {style.divSearch} >
+         <input 
+            type='search' 
+            onChange={handleChange}
+            value={searchName}
+            placeholder="Type a forename to search..."/>
+         <button onClick={search}>Search</button>
+
+         
+      </div>
    );
 }

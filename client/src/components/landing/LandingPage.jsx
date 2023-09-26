@@ -4,20 +4,22 @@ import style from './LandingPage.module.css';; // Crea un archivo CSS para estil
 
 function LandingPage() {
   return (
+    <div className={style.container}>
     <div className={style.landingPage}>
       {/* Imagen de fondo */}
       <div className={style.backgroundImage}></div>
 
       {/* Contenido de la página de inicio */}
       <div className={style.content}>
-        <h1>Bienvenido a Mi Proyecto</h1>
-        <p>Descripción de tu proyecto aquí.</p>
+{/*         <h1>Bienvenido a Mi Proyecto</h1>
+        <p>Descripción de tu proyecto aquí.</p> */}
 
         {/* Botón para ingresar a la página principal */}
         <Link to="/home" className={style.enterButton}>
           Ingresar
         </Link>
       </div>
+    </div>
     </div>
   );
 }
