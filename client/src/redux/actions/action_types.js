@@ -1,12 +1,14 @@
 export const GET_ALL_DRIVERS = 'GET_ALL_DRIVERS';
 export const GET_DRIVER_BY_NAME = 'GET_DRIVER_BY_NAME';
-export const FILTER_DRIVERS_BY_TEAM = 'FILTER_DRIVERS_BY_TEAM';
-export const FILTER_DRIVERS_BY_SOURCE = "FILTER_DRIVERS_BY_SOURCE";
-export const ORDER_DRIVERS = "ORDER_DRIVERS";
 export const GET_TEAMS = "GET_TEAMS";
-export const POST_DRIVERS = "POST_DRIVERS";
-////////////////
 export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
+export const FILTER_DRIVERS = "FILTER_DRIVERS";
+export const ORDER_DRIVERS = "ORDER_DRIVERS";
+
+
+
+
+
 
 
 

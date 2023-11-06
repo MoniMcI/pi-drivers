@@ -35,6 +35,10 @@ module.exports = (sequelize) => {
       type: DataTypes.DATEONLY,
       allowNull: false,
     },
+/*     ciudad: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    }, */    
   },
   );
 };

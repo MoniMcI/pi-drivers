@@ -1,253 +1,293 @@
+import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import style from './CreateDriver.module.css';
 import axios from 'axios';
-import { useState, useEffect } from "react";
-import style from "./CreateDriver.module.css";
-import { useDispatch, useSelector } from "react-redux";
-import { getTeams } from "../../redux/actions/actions";
+import { useDispatch } from 'react-redux';
+import { getTeams } from '../../redux/actions/actions';
 import f1 from "../../assets/f1-createdriver.png";
 
+const CreateDriver = () => {
 
-function CreateDriver() {
-  const dispatch = useDispatch();
-  const allTeams = useSelector((state) => state.teams);
-  const [selectedTeams, setSelectedTeams] = useState([]);
-
-  
-
-  useEffect(() => {
-    if (allTeams.length === 0) {
-      dispatch(getTeams());
-    }
-  }, [dispatch, allTeams.length]);
-
-  const [input, setInput] = useState({
-    forename: "",
-    surname: "",
-    nationality: "",
-    image: "",
-    dob: "",
-    description: "",
-    teams: "",
-  });
-
-  const [errors, setErrors] = useState({
-    forename: "",
-    surname: "",
-    nationality: "",
-    image: "",
-    dob: "",
-    description: "",
-    teams: "",
-  });
-
-  const [isFormValid, setIsFormValid] = useState(false);
-
-  const validate = (fieldName, value) => {
-    const newErrors = { ...errors };
-    let isValid = true;
-  
-    if (fieldName === "forename") {
-      const nameRegex = /^[A-Za-zÀ-ÿ\s]+$/;
-      if (!value || value.trim() === "") {
-        newErrors[fieldName] = "Forename is required";
-        isValid = false;
-      } else if (!nameRegex.test(value)) {
-        newErrors[fieldName] = "Invalid characters in the forename";
-        isValid = false;
-      } else {
-        newErrors[fieldName] = "";
-      }
-    }
-
+  const dispatch = useDispatch()
+  const allTeams = useSelector((state) => state.teams)
  
-    // const isValid = Object.values(newErrors).every((error) => error === "");
-    
-  console.log("newerrors: ", newErrors);
-    
-    setIsFormValid(isValid);
-    setErrors(newErrors);
-    console.log("isformvalid ", isFormValid);
-  };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setInput({
-      ...input,
-      [name]: value,
-    });
-     validate();
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  
+  useEffect(() => {
+    if(allTeams.length===0){
+    dispatch(getTeams());
+  }
+  }, [dispatch, allTeams.length])
 
 
-  };
+  const [form, setForm] = useState({
+    forename: "",
+    surname: "",
+    nationality: "",
+    image: "",
+    dob: "",
+    description: "",
+    teams: [],
+     });
+
+  // Errores en el formulario
+  const [errors, setErrors] = useState({
+    forename: true,
+    surname: true,
+    nationality: true,
+    image: true,
+    dob: true,
+    description: true,
+    teams: "",
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const teamsArray = input.teams;
-    const driverData = {
-      ...input,
-      teams: teamsArray,
-    };
 
 
-    axios.post("http://localhost:3001/drivers", driverData)
-      .then(response => {
-        alert("New driver successfully created")
+    axios.post('http://localhost:3001/drivers', form)
+      .then((res) => {
+        setSuccessMessage('New Driver created successfully');
+        setErrorMessage('');
       })
-      .catch(error => {
-        
-        if (error.response && error.response.status === 409) {
-          console.error("Error en el form status:", error.response.status)
-          alert("El piloto ya existe. Por favor, elija un nombre diferente.");
-        } else {
-          console.error("Error al guardar los datos:", error);
-        }
+      .catch((err) => {
+        setErrorMessage("Error: Driver could not be created" );
+        setSuccessMessage('');
       });
-  };
 
-  const handleTeamsChange = (e) => {
-    const { name, options } = e.target;
-    const selectedTeamNames = [];
-    for (let i = 0; i < options.length; i++) {
-      if (options[i].selected) {
-        selectedTeamNames.push(options[i].value);
+    setForm({
+      forename: '',
+      surname:'',
+      nationality:'',
+      description: '',
+      image: '',
+      dob: '',
+      teams: [],
+    });
+  }
+  const handleInputChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    })
+    setErrors(validate({
+      ...form, 
+      [e.target.name]: e.target.value,
+    }))
+  }
+
+
+  const validate = (form) => {
+    let errors = {}
+
+    if (!form.forename) {
+      errors.forename = 'Insert a valid forename';
+    } else if (!/^[a-zA-Z\s]+$/.test(form.forename)) {
+      errors.forename = 'The name must only contain letters and spaces';
+    } else if (form.forename.length > 50) { // Cambia 50 al número máximo de caracteres permitidos
+      errors.forename = 'The name is too long. Maximum length is 50 characters.';
+    }
+    if (!form.surname) {
+      errors.surname = 'Insert a valid surname';
+    } else if (!/^[a-zA-Z\s]+$/.test(form.surname)) {
+      errors.surname = 'The name must only contain letters and spaces';
+    } else if (form.surname.length > 50) { // Cambia 50 al número máximo de caracteres permitidos
+      errors.surname = 'The name is too long. Maximum length is 50 characters.';
+    }    
+    
+    if (!form.nationality) {
+      errors.nationality = 'Insert a valid nationality';
+    } else if (!/^[a-zA-Z\s]+$/.test(form.nationality)) {
+      errors.nationality = 'The nationality must only contain letters and spaces';
+    } else if (form.nationality.length > 50) { // Cambia 50 al número máximo de caracteres permitidos
+      errors.nationality = 'The name is too long. Maximum length is 50 characters.';
+    } 
+
+    if (!form.description) {
+      errors.description = 'Insert a valid description'
+    } else if (form.description.length < 10) {
+      errors.description = 'Description must be at least 10 characters';
+    }
+    if (!form.image) {
+      errors.image = 'Insert a date of birth'
+    } else if (!form.image.startsWith('https://') && !form.image.startsWith('http://')){
+       errors.image = 'Insert a valid URL image' 
+    }
+
+    if (!form.dob) {
+      errors.dob = 'Insert a valid date of birth';
+    } else {
+      const currentDate = new Date();
+      const minDate = new Date(currentDate.getFullYear() - 18, currentDate.getMonth(), currentDate.getDate());
+  
+      // Compara la fecha de nacimiento con la fecha mínima permitida
+      if (new Date(form.dob) > minDate) {
+        errors.dob = 'You must be at least 18 years old.';
       }
     }
-    setInput({
-      ...input,
-      [name]: selectedTeamNames.join(", "),
+
+    if (!form.teams || form.teams.length === 0) {
+      errors.teams = 'Select at least one team';
+    } else {
+      errors.teams = '';
+    }
+    
+
+    return errors;
+  }
+  
+
+  const handleTeamSelection = (e) => {
+    const selectedTeamOptions = Array.from(e.target.selectedOptions, (option) => option.value);
+    setForm({
+      ...form,
+      teams: selectedTeamOptions,
     });
-    setSelectedTeams(selectedTeamNames);
-    validate(name, selectedTeamNames.join(", "));
-  };
 
-  const renderTeamOptions = () => {
-    return (
-      <select name="teams" value={input.teams} onChange={handleTeamsChange} multiple>
-        {allTeams.map((team) => (
-          <option key={team} value={team}>
-            {team}
-          </option>
-        ))}
-      </select>
-    );
-  };
-
-  const renderSelectedTeams = () => {
-    return (
-      <div className={style.selectedTeams}>
-        {selectedTeams.map((teamName, index) => (
-          <div key={index} className={style.selectedTeam}>
-            <span>{teamName}</span>
-            <button
-              className={style.removeTeamButton}
-              onClick={() => removeSelectedTeam(index)}
-            >
-              &#10005;
-            </button>
-          </div>
-        ))}
-      </div>
-    );
-  };
-
-  const removeSelectedTeam = (index) => {
-    const updatedSelectedTeams = [...selectedTeams];
-    updatedSelectedTeams.splice(index, 1);
-    setSelectedTeams(updatedSelectedTeams);
-    setInput({
-      ...input,
-      teams: updatedSelectedTeams.join(", "),
+    setErrors({
+      ...errors,
+      teams: selectedTeamOptions.length === 0 ? 'Select at least one team' : '',
     });
   };
 
+  const removeSelectedTeam = (indexToRemove) => {
+    const updatedSelectedTeams = [...form.teams];
+    updatedSelectedTeams.splice(indexToRemove, 1);
+    setForm({
+      ...form,
+      teams: updatedSelectedTeams,
+    });
+  };
+  
   return (
     <div className={style.fatherContainer}>
-    <div>
-      <h2 className={style.title}>Create New Driver</h2>
-    </div>
-    <div className={style.container}>
-      <div className={style.sidebar}>
-        <img src={f1} alt="Create Driver Logo" className={style.logo} /> 
+      <div>
+        <h2 className={style.title}>Create New Driver</h2>
       </div>
-      <div className={style.formContainer}>      
-        <form onSubmit={handleSubmit}>
+      <div className={style.container}>
+        <div className={style.sidebar}>
+          <img src={f1} alt="Create Driver Logo" className={style.logo} /> 
+        </div>
+        <div className={style.formContainer}>
+          <form onSubmit={handleSubmit}>
           <div className={style.formGroup}>
-            <div className={style.formLabel}>
-              <label htmlFor="forename">Forename</label>
+               <div className={style.formLabel}> <label>Forename: </label></div>
+                <input 
+                  type="text"
+                  name="forename"
+                  onChange={handleInputChange}
+                  value={form.forename}
+                />
             </div>
-            <input name="forename" value={input.forename} onChange={handleChange} />   
-          </div>
-          <span className={style.errorMessage}>{errors.forename}</span>  
+              {
+                errors.forename && (<p className={style.errorMessage}>{errors.forename}</p>)
+              }            
+             <div className={style.formGroup}>
+               <div className={style.formLabel}><label className={style.formLabel}>Surname: </label></div>
+                <input 
+                  type="text"
+                  name="surname"
+                  onChange={handleInputChange}
+                  value={form.surname}
+                />
+              </div>
+              {
+                errors.surname && (<p className={style.errorMessage}>{errors.surname}</p>)
+              }            
+              <div className={style.formGroup}>
+                <div className={style.formLabel}><label>Image URL: </label></div>
+                <input 
+                  type="text"
+                  name="image"
+                  onChange={handleInputChange}
+                  value={form.image}
+                />
+              </div>
+              {
+                errors.image && (<p className={style.errorMessage}>{errors.image}</p>)
+              }
+             <div className={style.formGroup}>
+               <div className={style.formLabel}><label>Nationality: </label></div>
+                <input 
+                  type="text"
+                  name="nationality"
+                  onChange={handleInputChange}
+                  value={form.nationality}
+                />
+              </div>
+              {
+                errors.nationality && (<p className={style.errorMessage}>{errors.nationality}</p>)
+              } 
+              <div className={style.formGroup}>
+                 <div className={style.formLabel}><label>Date of Birth: </label></div>
+                <input 
+                  type="date"
+                  name="dob"
+                  onChange={handleInputChange}
+                  value={form.dob}
+                />
+              </div>
+              {
+                errors.dob && (<p className={style.errorMessage}>{errors.dob}</p>)
+              }              
+              <div className={style.formGroup}>
+              <div className={style.formLabel}><label>Description: </label></div>
+                <textarea 
+                  type="text"
+                  name="description"
+                  onChange={handleInputChange}
+                  value={form.description}
+                />
+              </div>
+              {
+                errors.description && (<p className={style.errorMessage}>{errors.description}</p>)
+              }    
 
           <div className={style.formGroup}>
             <div className={style.formLabel}>
-              <label htmlFor="Surname">Surname</label>
-            </div>              
-            <input name="surname" value={input.surname} onChange={handleChange} />
-          </div>
-          <span className={style.errorMessage}>{errors.surname}</span>
-
-          <div className={style.formGroup}>
-            <div className={style.formLabel}>
-              <label htmlFor="Image">Image URL</label>
+              <label>Teams</label>
             </div>
-            <input name="image" value={input.image} onChange={handleChange} />
+            <select name="teams" value={form.teams} onChange={(e) => handleTeamSelection(e)} multiple>
+              {allTeams.map((team) => (
+                <option key={team} value={team}>
+                  {team}
+                </option>
+              ))}
+            </select>
+            <span className={style.errorMessage}>{errors.teams}</span>
           </div>
-          <span className={style.errorMessage}>{errors.image}</span>
+          <div className={style.selectedTeams}>
+          {form.teams.map((teamName, index) => (
+              <div key={index} className={style.selectedTeam}>
+                <span>{teamName}</span>
+                <button
+                  type="button"
+                  className={style.removeTeamButton}
+                  onClick={() => removeSelectedTeam(index)}
+                >
+                  &#10005;
+                </button>
+              </div>
+            ))}
+          </div>
 
-          <div className={style.formGroup}>
-            <div className={style.formLabel}>
-              <label htmlFor="Nationality">Nationality</label>
-            </div>
-            <input name="nationality" value={input.nationality} onChange={handleChange} />
-          </div>
-          <span className={style.errorMessage}>{errors.nationality}</span>
+          <button type="submit"className={style.button}  disabled={Object.values(errors).some((error) => error)} >Create New Driver</button>              
+          </form>
+        </div>  
 
-          <div className={style.formGroup}>
-            <div className={style.formLabel}>
-              <label htmlFor="dob">Date of Birth</label>
-            </div>
-              <input
-                type="date"
-                name="dob"
-                value={input.dob}
-                onChange={handleChange}
-              />
-          </div>
-          <span className={style.errorMessage}>{errors.dob}</span>
-          <div className={style.formGroup}>
-            <div className={style.formLabel}>
-              <label htmlFor="description">Description</label>
-            </div>
-            <textarea
-              name="description"
-              value={input.description}
-              onChange={handleChange}
-            />
-          </div>
-          <span className={style.errorMessage}>{errors.description}</span>
-          <div className={style.formGroup}>
-            <div className={style.formLabel}>
-              <label htmlFor="teams">Teams</label>
-            </div>
-              {renderTeamOptions()}
-          </div>
-          <span className={style.errorMessage}>{errors.teams}</span>
-          {renderSelectedTeams()}
-
-          <button
-            type="submit"
-            className={`${style.submitButton} ${!isFormValid ? style.disabledButton : ""}`}
-            disabled={!isFormValid}
-          >
-            Submit
-          </button>
-            {console.log("DISABLED NOT:", !isFormValid)}
-
-        </form>
       </div>
-    </div>
-  </div>
-  );
+
+      {successMessage && (
+        <div className={style.alertSuccess}>{successMessage}</div>
+      )}
+      {errorMessage && (
+        <div className={style.alertError}>{errorMessage}</div>
+      )}      
+    </div> 
+
+  )
 }
 
 export default CreateDriver;

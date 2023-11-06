@@ -3,6 +3,7 @@ import axios from "axios";
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import style from './Detail.module.css';
+const defaultImage = "https://www.donolli.com.ar/defaultImagePI.png"
 
 function Detail() {
   const { id } = useParams()  //este id se lo manda Card por props
@@ -11,14 +12,27 @@ function Detail() {
 
 
   useEffect(() => {
+   let copiaDatos = {}
    axios(`${URL_BASE}${id}`).then(({ data }) => {
       if (data.id) {
-         setDriver(data);  
+         setDriver(data);
+         if (typeof data.id !== "string"){
+          copiaDatos = {
+            ...data,
+            image: data.image.url
+          }
+         } else {
+          copiaDatos = {
+            ...data,
+            image: data.image
+          }
+         }
+         setDriver(copiaDatos)
       } else {
          window.alert('No hay drivers con ese ID');
       }
    });
-   console.log("driver recibido: ", driver)
+
    return setDriver({});
 }, [id]);
   
@@ -55,7 +69,12 @@ function Detail() {
 
         </div>
         <div className={style.rightColumn}>
-          {driver.image && <img src={driver.image.url ? driver.image.url : driver.image } alt={driver.surname} className={style.circularImage} />}
+          {console.log("image abajo", driver)}
+
+              <img 
+                src={driver.image ? driver.image : defaultImage} 
+                alt={driver.surname} 
+                className={style.circularImage} />
         </div>
 
       </div>

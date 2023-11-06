@@ -8,7 +8,7 @@ const PORT = 3001;
 const { Driver, Team } = require('./src/db') // Asegúrate de importar tus modelos para crear el registro
 
 
-conn.sync({ force: false })
+conn.sync({ force: true })
 .then( async () => {
 
 server.listen(PORT, () => {

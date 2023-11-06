@@ -30,7 +30,6 @@ const onHomeClick = () => {
 useEffect(() => {
   if (searchString) {
     dispatch(getDriverByName(searchString));
-
   }
 }, [searchString, dispatch]);
 
@@ -41,12 +40,12 @@ useEffect(() => {
           <Nav  
             onSearch = {onSearch} 
             onHomeClick={onHomeClick}
-            onFilterChange={(value) => setFilter(value)}
-            onSortChange={(value)=> ScrollRestoration(value)}
+            // onFilterChange={(value) => setFilter(value)}
+            // onSortChange={(value)=> ScrollRestoration(value)}
             />} 
          <Routes>
             <Route path="/" element={<LandingPage />} /> 
-            <Route path="/home" element={<Home />} /> 
+            <Route path="/home" element={<Home  />} /> 
             <Route path="/detail/:id" element={<Detail />} />
             <Route path="/create" element={<CreateDriver />} />        
          </Routes>

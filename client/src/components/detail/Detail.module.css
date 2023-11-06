@@ -9,7 +9,7 @@
 .detail {
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
   width: 800px;
   background-color: black;
   margin: 0 30px;
@@ -42,21 +42,21 @@
 }
 
 .circularImage {
-    width: 250px; /* Ajusta el tamaño del círculo según tus necesidades */
-    height: 250px; /* Mismo tamaño que el ancho para hacer un círculo perfecto */
-    border-radius: 50%; /* Aplica un borde circular */
-    overflow: hidden; /* Oculta cualquier parte de la imagen fuera del círculo */
-    transition: all 0.3s ease; /* Agrega una transición suave para el cambio de forma */
+    width: 250px; 
+    height: 250px; 
+    border-radius: 50%; 
+    overflow: hidden;
+    transition: all 0.3s ease; 
   }
   
   .squareImage {
-    border-radius: 15px; /* Aplica esquinas redondeadas para hacer un cuadrado */
+    border-radius: 15px; 
   }
 
   .circularImage:hover {
-    border-radius: 15px; /* Cambia a esquinas redondeadas en hover */
-    transform: scale(1.1); /* Aplica un efecto de escala en hover */
-    transition: all 0.3s ease; /* Agrega una transición suave en hover */
+    border-radius: 15px; 
+    transform: scale(1.1); 
+    transition: all 0.3s ease;
   }
 
   span{
@@ -65,6 +65,7 @@
 
  
   .title {
+
     font-size: 50px; 
     margin: 10px 0; 
     color: white;

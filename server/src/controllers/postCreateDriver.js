@@ -1,6 +1,6 @@
 const { Driver, Team } = require('../db');
 
-const postCreateDriver = async (forename,surname,description,image,nationality,dob, arrTeams) => {
+const postCreateDriver = async (forename,surname,description,image,nationality,dob,arrTeams) => {
   console.log(surname);
     const existingDriver = await Driver.findOne({
         where: {
@@ -24,12 +24,18 @@ const postCreateDriver = async (forename,surname,description,image,nationality,d
         dob
     })
 
+    // Asocia los equipos existentes al nuevo conductor
     for (const teamName of arrTeams) {
-      const [team, created] = await Team.findOrCreate({
+      const team = await Team.findOne({
         where: { name: teamName },
       });
-      await newDriver.addTeam(team);
+      if (team) {
+        await newDriver.addTeam(team);
+      }
     }
+
+
+    
     console.log("NewDriver: ", newDriver)
     return newDriver;
 }

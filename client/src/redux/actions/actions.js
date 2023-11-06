@@ -1,12 +1,11 @@
 import axios from 'axios';
 import { GET_ALL_DRIVERS, 
          GET_DRIVER_BY_NAME, 
-         FILTER_DRIVERS_BY_TEAM,
-         FILTER_DRIVERS_BY_SOURCE,
          GET_TEAMS,
-         ORDER_DRIVERS,
-         POST_DRIVERS,
          SET_CURRENT_PAGE,
+         FILTER_DRIVERS,
+         ORDER_DRIVERS,
+
   } from './action_types';
 
 const URL_BASE = 'http://localhost:3001/drivers'
@@ -41,27 +40,6 @@ export const getTeams = () => {
     };
   };
 
-export const filterDriversByTeam = (team) => {
-    return {
-      type: FILTER_DRIVERS_BY_TEAM,
-      payload: team,
-    };
-  };
-  
-  export const filterDriversBySource = (filter) => {
-    return {
-      type: FILTER_DRIVERS_BY_SOURCE,
-      payload: filter,
-    };
-  };
-
- 
-  export const orderDrivers = (order) => {
-    return {
-      type: ORDER_DRIVERS,
-      payload: order,
-    };
-  };
 
   export const createDrivers = (driver) => {
     return async (dispatch) => {
@@ -84,5 +62,19 @@ export const filterDriversByTeam = (team) => {
   };
 
 
+  export const filterDrivers = (team, source, order) => {
+    return {
+      type: FILTER_DRIVERS,
+      payload: { team, source, order },
+    };
+  };
+
+
+  export const orderDrivers = (order) => {
+    return {
+      type: ORDER_DRIVERS,
+      payload: order,
+    };
+  };
 
 

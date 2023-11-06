@@ -1,34 +1,52 @@
 import style from "./FilterOrder.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { filterDriversByTeam, filterDriversBySource, orderDrivers } from "../../redux/actions/actions";
+import { filterDrivers, orderDrivers } from "../../redux/actions/actions";
 import { useState } from "react";
 import { getTeams } from "../../redux/actions/actions";
 import { useEffect } from "react";
 
 const FilterOrder = () => {
   const dispatch = useDispatch();
-  const [aux, setAux] = useState(false);
-  const [selectedTeams, setSelectedTeam] = useState(false);
+//globales
   const teams = useSelector((state) => state.teams);
+//locales
+  const [selectedTeam, setSelectedTeam] = useState("All Teams");
+  const [selectedSource, setSelectedSource] = useState("All");
+  const [selectedOrder, setSelectedOrder] = useState("Orderless");
+  
  
   useEffect(() => {
     dispatch(getTeams());
   }, [dispatch]);
  
-  const handleFilter = (event) => {
-    dispatch(filterDriversBySource(event.target.value));
-
-    dispatch(setCurrentPage(1));
-  };
-
   const handleFilterByTeams = (event) => {
-    setSelectedTeam(event.target.value);
-    dispatch(filterDriversByTeam(event.target.value));
+    const newSelectedTeam = event.target.value;
+    setSelectedTeam(newSelectedTeam);
+    applyFilters(newSelectedTeam, selectedSource, selectedOrder);
+  };
+  
+  const handleSourceFilter = (event) => {
+    const newSelectedSource = event.target.value;
+    setSelectedSource(newSelectedSource);
+    applyFilters(selectedTeam, newSelectedSource, selectedOrder);
   };
 
-  const handleOrder = (event) => {
-    dispatch(orderDrivers(event.target.value));
-    setAux(!aux);
+  const handleOrderChange = (event) => {
+    const newSelectedOrder = event.target.value;
+    setSelectedOrder(newSelectedOrder);
+    if ( selectedTeam === "All Teams" && selectedSource === "All" ){
+      dispatch(orderDrivers(event.target.value));
+    } else {
+      dispatch(filterDrivers(selectedTeam, selectedSource, newSelectedOrder));
+
+    }
+ 
+    
+
+  };
+
+  const applyFilters = (team, source, order) => {
+    dispatch(filterDrivers(team, source, order));
   };
 
   return (
@@ -40,7 +58,8 @@ const FilterOrder = () => {
 
           <p className={style.orden}>ORDERING</p>
 
-          <select onChange={handleOrder} className={style.option}>
+          <select onChange={handleOrderChange} className={style.option}>
+            <option value="SinOrden">Orderless</option>
             <option value="Fecha Asc">Birthday Asc</option>
             <option value="Fecha Desc">Birthday Desc</option>
             <option value="Ascending">Ascendent A-Z</option>
@@ -58,7 +77,7 @@ const FilterOrder = () => {
               name="filter"
               id="allDrivers"
               value="All"
-              onChange={handleFilter}
+              onChange={handleSourceFilter}
             />
           </label>
           <label htmlFor="api" className={style.label}>
@@ -69,7 +88,7 @@ const FilterOrder = () => {
               name="filter"
               id="api"
               value="Api"
-              onChange={handleFilter}
+              onChange={handleSourceFilter}
             />
           </label>
           <label htmlFor="baseDeDatos" className={style.label}>
@@ -79,8 +98,8 @@ const FilterOrder = () => {
               type="radio"
               name="filter"
               id="baseDeDatos"
-              value="Base de Datos"
-              onChange={handleFilter}
+              value="BD"
+              onChange={handleSourceFilter}
             />
           </label>
         </div>

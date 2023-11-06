@@ -16,7 +16,7 @@ export default function SearchBar({ onSearch }) {
    };
 
    return (
-      <div classname = {style.divSearch} >
+      <div className = {style.divSearch} >
          <input 
             type='search' 
             onChange={handleChange}

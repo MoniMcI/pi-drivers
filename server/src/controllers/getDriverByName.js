@@ -2,29 +2,47 @@ const axios = require("axios");
 const { Op } = require('sequelize'); 
 const { Driver, Team } = require('../db');
 
+const imgDefault = "https://www.donolli.com.ar/defaultImagePI.png"
 
-const getDriverByName = async (name) => {
+module.exports = async (nameSearch) => {
+  try {
+    const apiResponse = await axios.get("http://localhost:5000/drivers");
 
+    const apiDrivers = apiResponse.data.map((apiDriver) => {
+      return {
+        id: apiDriver.id,
+        forename: apiDriver.name.forename,
+        surname: apiDriver.name.surname,
+        image: apiDriver.image.url || imgDefault,
+        dob: apiDriver.dob,
+        teams: apiDriver.teams,
+      };
+    });
 
-    // Realiza la búsqueda en la base de datos
+    const normalizedSearchTerm = nameSearch.toLowerCase();
+
+ 
+    const matchingApiDrivers = apiDrivers.filter((driver) => {
+      const fullName = `${driver.forename} `.toLowerCase();
+      return fullName.includes(normalizedSearchTerm);
+    });
+
+  
     const dbDrivers = await Driver.findAll({
       where: {
         forename: {
-          [Op.iLike]: `%${name}%`
+          [Op.iLike]: `%${nameSearch}%`
         }
       },
       include: Team,
     });
 
-    // Realiza la búsqueda en la API externa
-    const apiUrl = `http://localhost:5000/drivers?name.forename=${encodeURIComponent(name)}`;
-    const apiResponse = await axios.get(apiUrl);
+    const allDrivers = [...dbDrivers, ...matchingApiDrivers];
 
-    const apiDrivers = apiResponse.data;
+    return allDrivers.slice(0, 15);
 
-    // Combina los resultados de la base de datos y la API
-    const drivers = [...dbDrivers, ...apiDrivers].slice(0,15);
-    return drivers;
+  } catch (error) {
+    console.error("Error en la función getDriversByName:", error);
+    throw error; 
 }
-
-module.exports = getDriverByName;
+}

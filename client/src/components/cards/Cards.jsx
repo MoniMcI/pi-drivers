@@ -2,7 +2,7 @@ import Card from '../card/Card';
 import style from './Cards.module.css';
 
 export default function Cards({drivers}) {
-  console.log('todos: ', drivers)
+
    return (
       <div className={style.container}>
         { drivers.map((driver) => (

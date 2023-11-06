@@ -1,6 +1,6 @@
 const axios = require("axios");
 const { Driver, Team } = require('../db');
-const imgDefault = "https://i.imgur.com/Ks7SbZt.png"
+const imgDefault = "https://www.donolli.com.ar/defaultImagePI.png";
 
 module.exports = async ()=>{
 

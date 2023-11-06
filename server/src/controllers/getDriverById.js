@@ -34,9 +34,6 @@ const getDriverById = async (id)=>{
             }
 
 
-  /*         /*   const {  name,  nationality, image, description, dob, teams   } = response.data */ 
-/*             const { forename, surname } = name; 
-            foundDriver = { id, forename, surname, nationality, image, description, dob, teams}  */
         } catch (error) {
             throw new Error(`Driver with ID ${id} not found in the API`);
         }        

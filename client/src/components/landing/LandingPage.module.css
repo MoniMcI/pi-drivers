@@ -2,12 +2,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    place-items: center;
 
-    min-height: 100vh; 
+    min-height: 100vh;
     min-width: 100vw;
     background-image: url('../../assets/bg-landing.png');
+    background-attachment: fixed;
     background-size: cover;
-    background-position: center;
+    background-position: center center;
 
   }
   
@@ -31,7 +33,7 @@
   }
   
   .enterButton:hover {
-    background-color: #FBD51A; /* Cambia el color de fondo al pasar el cursor por encima */
+    background-color: #FDB101;; /* Cambia el color de fondo al pasar el cursor por encima */
     color: black;
   }
   

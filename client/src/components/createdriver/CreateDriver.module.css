@@ -1,3 +1,4 @@
+
 .fatherContainer{
   display: flex;
   flex-direction: column;
@@ -66,43 +67,45 @@ select {
   width: 200px;
 }
 
-.title {
-  font-size: 50px; 
-  margin: 10px 0; 
-  color: white;
-}
 .errorMessage{
   display: flex;
   justify-content: right;
   font-size: 0.7rem;
   padding-bottom: 10px;
+  text-align: right;
 
 }
 
 
-
-
-
-/* CSS para el botón habilitado */
-/* CSS para el botón habilitado */
-.submitButton {
-  background-color: red; /* Color de fondo cuando está habilitado */
-  color: #fff; /* Color de texto cuando está habilitado */
-  cursor: pointer; /* Cambia el cursor al pasar el mouse */
+.button {
+  width: 300px;
+  font-size:1rem;
+  padding: 10px;
+  color: white;
+  font-weight: 700;
+  background-color: red;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-family: 'mariobros', sans-serif;
+  margin-top: 2%;
+  
 }
 
-/* CSS para el botón deshabilitado */
-.disabledButton {
-  background-color: #ccc; /* Color de fondo cuando está deshabilitado */
-  color: #999; /* Color de texto cuando está deshabilitado */
-  cursor: not-allowed; /* Cambia el cursor al pasar el mouse */
+.button:hover {
+  background-color: #FDB101;
+  color: white;
+}
+.button:disabled {
+  background-color: #ccc; 
+  color: #999; 
+  cursor: not-allowed; 
 }
 
-/* CSS para el botón deshabilitado en estado de hover */
-.disabledButton:hover {
-  background-color: #ccc; /* Mantiene el mismo color de fondo cuando está deshabilitado y se hace hover */
-  color: #999; /* Mantiene el mismo color de texto cuando está deshabilitado y se hace hover */
-  cursor: not-allowed; /* Cambia el cursor al pasar el mouse, pero mantiene el mismo estilo */
+.title {
+  
+  font-size: 50px; 
+  margin: 10px 0; 
+  color: white;
 }
 
- 
+

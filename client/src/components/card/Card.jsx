@@ -1,32 +1,22 @@
 import React from 'react';
 import style from './Card.module.css';
 import { Link } from 'react-router-dom';
-import noImage from "../../assets/defaultImagePI.png";
 
+const defaultImage = "https://www.donolli.com.ar/defaultImagePI.png"
 
 function Card(props) {
-
+    
     const { id, image, forename, surname, teams, dob } = props;
+
+ 
     return (
       <div className={style.container}>
-        { image?(
-      
-        <img
-          src={image}
-          alt={`${forename} ${surname}`} 
-          className={style.image}           
-        />)
-        : (<img
-        src={noImage}
-        alt={`${forename} ${surname}`} 
-        className={style.image}           
-      /> )
-        }
 
+        <img src={image || defaultImage} alt={`${forename} ${surname}`} className={style.image} />
 
         <Link to={`/detail/${id}`}>
           
-          <h3 classname={style.name}>{forename} {surname}</h3>
+          <h3 className={style.name}>{forename} {surname}</h3>
           {/* <h2>{id}</h2>  */}
         </Link>
         <div>Dob {dob}</div>
@@ -42,7 +32,7 @@ function Card(props) {
             </p>
               ) 
             : (
-                <p>No se encontraron escuderías.</p>
+                <p>Teams were not found.</p>
               )}
               
       </div>
