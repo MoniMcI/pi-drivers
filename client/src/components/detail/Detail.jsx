@@ -8,7 +8,7 @@ const defaultImage = "https://www.donolli.com.ar/defaultImagePI.png"
 function Detail() {
   const { id } = useParams()  //este id se lo manda Card por props
   const [ driver, setDriver ]= useState({})
-  const URL_BASE = 'http://localhost:3001/drivers/' //a esta url del back end llamaremos
+  const URL_BASE = 'https://pi-drivers.onrender.com/drivers/' //a esta url del back end llamaremos
 
 
   useEffect(() => {

@@ -8,7 +8,7 @@ import { GET_ALL_DRIVERS,
 
   } from './action_types';
 
-const URL_BASE = 'http://localhost:3001/drivers'
+const URL_BASE = 'https://pi-drivers.onrender.com/drivers'
 
 export const getAllDrivers =  () => {
     return async function(dispatch){
@@ -32,7 +32,7 @@ export function getDriverByName(name){
 
 export const getTeams = () => {
     return async (dispatch) => {
-      const { data } = await axios.get("http://localhost:3001/teams");
+      const { data } = await axios.get("https://pi-drivers.onrender.com/teams");
       dispatch({
         type: GET_TEAMS,
         payload: data,
@@ -44,7 +44,7 @@ export const getTeams = () => {
   export const createDrivers = (driver) => {
     return async (dispatch) => {
       const { data } = await axios.post(
-        "http://localhost:3001/drivers",
+        "https://pi-drivers.onrender.com/drivers",
         driver
       );
       return {

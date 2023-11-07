@@ -84,7 +84,7 @@ function CreateDriver() {
     };
 
 
-    axios.post("http://localhost:3001/drivers", driverData)
+    axios.post("https://pi-drivers.onrender.com/drivers", driverData)
       .then(response => {
         alert("New driver successfully created")
       })
@@ -391,7 +391,7 @@ function CreateDriver() {
       teams: teamsArray,
 };
 
-    axios.post("http://localhost:3001/drivers", driverData)
+    axios.post("https://pi-drivers.onrender.com/drivers", driverData)
       .then(response => {
         alert("New driver saved correctly")
       })
