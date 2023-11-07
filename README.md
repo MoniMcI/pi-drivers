@@ -54,7 +54,7 @@ Una barra para filtrar y ordenar a los corredores.
 -  Teams.
 -  Id.
 
-![image](https://github.com/MoniMcI/pi-drivers/assets/createdriver.png)
+![image](https://github.com/MoniMcI/pi-drivers/blob/main/client/src/assets/createdriver.png)
 
 
 <br />
@@ -72,7 +72,7 @@ Este formulario **tiene sus ingresos validados completamente con JavaScript**.
 -  Teams.
 -  Create new driver.
 
-![image](https://github.com/MoniMcI/pi-drivers/assets/createdriver.png)
+![image](https://github.com/MoniMcI/pi-drivers/blob/main/client/src/assets/createdriver.png)
 
 <br />
 
