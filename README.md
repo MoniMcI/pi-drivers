@@ -16,67 +16,45 @@ Este proyecto usa una REST API para
 
 -  Buscar corredores de Formula 1.
 -  Visualizar la información de los mismos.
--  Filtrarlos.
--  Ordenarlos.
--  Ingresar nuevos corredores de F!.
+-  Utilizar Filtos combinados con ordenamiento.
+-  Ingresar nuevos corredores de F1.
 
 ### **🖱 FRONT-END**
 
-**📍 LANDING PAGE |**una página de inicio con:
-
-Botón para ingresar a la **`home page`**.
+**📍 LANDING PAGE |** La aplicación comienza con una landing que llevará a la **`home page`**.
   
 ![image](https://github.com/MoniMcI/pi-drivers/blob/main/client/src/assets/landing.png)
 
 <br />
 
-**📍 HOME PAGE |** la página principal de tu SPA debe contener:
+**📍 HOME PAGE |** La página principal mostrará los corredores que existen en la API:
 
-![image](https://github.com/MoniMcI/pi-drivers/assets/landing.png)
+![image](https://github.com/MoniMcI/pi-drivers/blob/main/client/src/assets/homepage.png)
 
+En la parte inferior se verá el paginado de la homepage, que muestra 9 corredores por página:
+
+![image](https://github.com/MoniMcI/pi-drivers/blob/main/client/src/assets/paginado.png)
 
 SearchBar: un input de búsqueda para encontrar corredores por nombre.
 
-![image](https://github.com/MoniMcI/pi-drivers/assets/landing.png)
+![image](https://github.com/MoniMcI/pi-drivers/blob/main/client/src/assets/busqueda.png)
 
-Una barra para filtrar y ordenar a los corredores .
+Una barra para filtrar y ordenar a los corredores.
 
-![image](https://github.com/MoniMcI/pi-drivers/assets/landing.png)
-
-Botones/Opciones para **filtrar** por fecha de nacimiento, y por si su origen es de la API o de la base de datos (creados por nosotros desde el formulario).
-
-![image](https://github.com/MoniMcI/pi-drivers/assets/landing.png)
-
-Botones/Opciones para **ordenar** tanto ascendentemente como descendentemente los corredores por orden alfabético y por fecha de nacimiento.
-
-![image](https://github.com/MoniMcI/pi-drivers/assets/landing.png)
-
-Paginado: el listado de corredores.
-
-![image](https://github.com/MoniMcI/pi-drivers/assets/landing.png)
-
-y
-
-![image](https://github.com/MoniMcI/pi-drivers/assets/landing.png)
+![image](https://github.com/MoniMcI/pi-drivers/blob/main/client/src/assets/filtrado.png)
 
 <br />
 
-**📍 DETAIL PAGE |** en esta vista se deberá mostrar toda la información específica de un corredor:
+**📍 DETAIL PAGE |** Esta página muestra la información específica de un corredor:
 
--  ID.
--  Nombre.
--  Imagen.
--  Plataformas.
--  Descripción.
--  Fecha de lanzamiento.
--  Rating.
--  Géneros.
+-  Forename and surname.
+-  Nationality.
+-  Date of Birth.
+-  Description.
+-  Teams.
+-  Id.
 
-![image](https://github.com/MoniMcI/pi-drivers/assets/landing.png)
-
-![image](https://github.com/MoniMcI/pi-drivers/assets/landing.png)
-
-![image](https://github.com/MoniMcI/pi-drivers/assets/landing.png)
+![image](https://github.com/MoniMcI/pi-drivers/assets/createdriver.png)
 
 
 <br />
@@ -85,30 +63,18 @@ y
 
 Este formulario **tiene sus ingresos validados completamente con JavaScript**.
 
--  Nombre.
--  Imagen.
--  Descripción.
--  Plataformas.
--  Fecha de lanzamiento.
--  Rating.
--  Posibilidad de seleccionar/agregar varios géneros en simultáneo.
--  Botón para crear el nuevo corredor.
+-  Forename.
+-  Surname.
+-  Image URL.
+-  Nationality.
+-  Date of Birth.
+-  Descritption.
+-  Teams.
+-  Create new driver.
 
-![image](https://github.com/MoniMcI/pi-drivers/assets/landing.png)
+![image](https://github.com/MoniMcI/pi-drivers/assets/createdriver.png)
 
 <br />
 
 ---
 
-<br />
-
-<div align="center">
-<img src="./videogame.png" alt="" />
-</div>
-
-
-<br />
-
-<div align="center">
-<img src="./videogame.png" alt="" />
-</div>
