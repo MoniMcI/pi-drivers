@@ -2,10 +2,10 @@ const axios = require("axios");
 const server = require("./src/server");
 const { conn } = require('./src/db.js');
 
-const PORT = process.env || 3001;
+const PORT = process.env.PORT || 3001;
 
 
-const { Driver, Team } = require('./src/db') // Asegúrate de importar tus modelos para crear el registro
+const { Driver, Team } = require('./src/db') 
 
 
 conn.sync()    
