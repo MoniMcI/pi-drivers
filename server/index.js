@@ -8,13 +8,13 @@ const PORT = process.env || 3001;
 const { Driver, Team } = require('./src/db') // Asegúrate de importar tus modelos para crear el registro
 
 
-conn.sync({ alter: true })
-.then( async () => {
-
-server.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
-})
-}).catch(error => console.error(error))
+conn.sync()    
+  .then(() => {
+    server.listen(PORT, () => {
+      console.log(`Server listening on port ${PORT}`);
+    });
+  })
+  .catch(error => console.error(error));
 
 
 
