@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "Server Proyecto Individual",
   "main": "index.js",
+  "_nota_start_original": "concurrently \"npm run server\" \"npm run api\"",
   "scripts": {
     "server": "nodemon index.js",
     "api": "echo 'Local API listening on PORT 5000' & json-server --watch api/db.json -p 5000 -q",
-    "start": "concurrently \"npm run server\" \"npm run api\""
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC",
