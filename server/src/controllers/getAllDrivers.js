@@ -1,6 +1,6 @@
 const axios = require("axios");
 const { Driver, Team } = require('../db');
-const imgDefault = "https://www.donolli.com.ar/defaultImagePI.png";
+const imgDefault = "https://raw.githubusercontent.com/MoniMcI/pi-drivers/main/client/src/components/card/defaultImagePI.png";
 
 module.exports = async ()=>{
 

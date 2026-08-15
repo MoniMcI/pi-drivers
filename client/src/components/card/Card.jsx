@@ -1,8 +1,9 @@
 import React from 'react';
 import style from './Card.module.css';
 import { Link } from 'react-router-dom';
+import defaultImage from './defaultImagePI.png';
 
-const defaultImage = "https://www.donolli.com.ar/defaultImagePI.png"
+/*const defaultImage = "https://www.donolli.com.ar/defaultImagePI.png"*/
 
 function Card(props) {
     
@@ -12,7 +13,12 @@ function Card(props) {
     return (
       <div className={style.container}>
 
-        <img src={image || defaultImage} alt={`${forename} ${surname}`} className={style.image} />
+        <img 
+          src={image || defaultImage} 
+          alt={`${forename} ${surname}`} 
+          className={style.image}
+          onError={(e) => { e.target.onerror = null; e.target.src = defaultImage; }}
+        />
 
         <Link to={`/detail/${id}`}>
           
