@@ -4,9 +4,16 @@ const imgDefault = "https://www.donolli.com.ar/defaultImagePI.png";
 
 module.exports = async ()=>{
 
+let apiResponse;
+try {
+  apiResponse = await axios.get("http://localhost:5000/drivers");
+} catch (err) {
+  console.log("ERROR AXIOS:", err.code, err.message);
+  apiResponse = { data: [] }; // seguimos sin los datos de la API falsa
+}
 
         // Hacer una solicitud GET a la API externa en localhost:5000/drivers
-        const apiResponse = await axios.get("http://localhost:5000/drivers");
+        //const apiResponse = await axios.get("http://localhost:5000/drivers");
     
         // Obtener los datos de los conductores desde la api
         const apiDrivers = apiResponse.data.map((apiDriver) => {
