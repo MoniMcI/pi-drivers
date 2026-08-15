@@ -1,2 +1,7 @@
 .env
 node_modules
+
+server/.env.neon-backup
+server/seed.js
+server/emptyDb.js
+NOTAS.md
