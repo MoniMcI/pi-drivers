@@ -5,3 +5,4 @@ server/.env.neon-backup
 server/seed.js
 server/emptyDb.js
 NOTAS.md
+server/updateFangio.js
